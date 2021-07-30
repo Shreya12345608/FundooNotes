@@ -81,7 +81,7 @@ namespace Fundoo.Controllers
                 if (users != null)
                 {
                    string Token = Fundoo.CreateToken(users.UserEmail, users.Userid);
-                    return NotFound(new { sucess = false, message = "Invalid details", Data = Token });
+                    return NotFound(new { sucess = true, message = "Valid details", Data = Token });
 
                 }
                 return NotFound(new { sucess = false, message = "Invalid details" });
@@ -101,10 +101,10 @@ namespace Fundoo.Controllers
                 bool forgetpass = Fundoo.ForgotPassword(user.UserEmail);
                 if (forgetpass)
                 {
-                    return NotFound(new { sucess = false, message = "Invalid details", Data = forgetpass });
+                    return NotFound(new { Success = true, message = "Valid details", Data = forgetpass });
 
                 }
-                return NotFound(new { sucess = false, message = "No user Exist" });
+                return NotFound(new { Sucess = false, message = "No user Exist" });
             }
             catch (Exception ex)
             {
