@@ -84,7 +84,6 @@ namespace Fundoo.Controllers
                     return NotFound(new { sucess = true, message = "Valid details", Data = Token });
 
                 }
-                return NotFound(new { sucess = false, message = "Invalid details" });
             }
             catch (Exception ex)
             {
@@ -104,8 +103,7 @@ namespace Fundoo.Controllers
                     return NotFound(new { Success = true, message = "Valid details", Data = forgetpass });
 
                 }
-                return NotFound(new { Sucess = false, message = "No user Exist" });
-            }
+             }
             catch (Exception ex)
             {
 
