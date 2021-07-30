@@ -33,7 +33,7 @@ namespace Fundoo
             services.AddDbContext<FundooContext>(opts => opts.UseSqlServer(Configuration["ConnectionStrings:FundooNoteDB"]));
             services.AddControllers();
             services.AddScoped<IUserAccountBL, UserAccountBL>();
-            services.AddScoped<IUserAccountRL, FunfooDbRL>();
+            services.AddScoped<IUserAccountRL, UserAccountRL>();
             //services.Configure<Settings>(Configuration.GetSection("AppSettings"));
             var authenticationSettings = Configuration.GetSection("AppSettings");
             services.Configure<Settings>(authenticationSettings);

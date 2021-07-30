@@ -11,14 +11,14 @@ using System.Text;
 
 namespace RepositoryLayer.Service
 {
-    public class FunfooDbRL : IUserAccountRL
+    public class UserAccountRL : IUserAccountRL
     {
         private FundooContext fundooContext;
         /// <summary>
         /// constructor 
         /// </summary>
         /// <param name="fundooContext"></param>
-        public FunfooDbRL(FundooContext fundooContext)
+        public UserAccountRL(FundooContext fundooContext)
         {
 
             this.fundooContext = fundooContext;
@@ -84,18 +84,7 @@ namespace RepositoryLayer.Service
                 throw new Exception(ex.Message);
             }
         }
-        
-        private static string EncryptPassword(string Password)
-        {
-            //SHA1 hash value for the input data using the
-            //implementation provided by the cryptographic service provider (CSP)
-            var provider = new SHA1CryptoServiceProvider();
-            //Represents a UTF-16 encoding of Unicode characters.
-            var encoding = new UnicodeEncoding();
-            byte[] encrypt = provider.ComputeHash(encoding.GetBytes(Password));
-            String encrypted = Convert.ToBase64String(encrypt);
-            return encrypted;
-        }
+
         /// <summary>
         /// forget password
         /// </summary>
@@ -106,7 +95,8 @@ namespace RepositoryLayer.Service
             try
             {
                 var result = fundooContext.FondooNotes.FirstOrDefault(user => user.UserEmail == UserEmail);
-                if (result == null) { 
+                if (result == null)
+                {
                     return false;
                 }
                 return true;
@@ -115,6 +105,48 @@ namespace RepositoryLayer.Service
             {
                 throw new Exception(ex.Message);
             }
+        }
+        /// <summary>
+        /// EncryptPassword
+        /// </summary>
+        /// <param name="Password"></param>
+        /// <returns></returns>
+        private static string EncryptPassword(string Password)
+        {
+            try
+            {
+
+                //SHA1 hash value for the input data using the
+                //implementation provided by the cryptographic service provider (CSP)
+                var provider = new SHA1CryptoServiceProvider();
+                //Represents a UTF-16 encoding of Unicode characters.
+                var encoding = new UnicodeEncoding();
+                //encrypt the given password string into Encrypted data  
+                byte[] encrypt = provider.ComputeHash(encoding.GetBytes(Password));
+                String encrypted = Convert.ToBase64String(encrypt);
+                return encrypted;
+            }
+            catch
+            {
+
+                throw;
+            }
+        }
+        /// <summary>
+        /// reset password
+        /// </summary>
+        /// <param name="resetPassword"></param>
+        /// <returns></returns>
+        public bool ResetPassword(ResetPassword resetPassword)
+        {
+            string encodePswrd = EncryptPassword(resetPassword.NewPassword);
+            var password = this.fundooContext.FondooNotes.FirstOrDefault(user => user.UserEmail == resetPassword.UserEmail);
+            if (password != null)
+            {
+                password.Password = encodePswrd;
+                fundooContext.SaveChanges();
+            }
+            return true;
         }
     }
 }

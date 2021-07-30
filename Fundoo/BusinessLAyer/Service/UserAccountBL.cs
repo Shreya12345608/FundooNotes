@@ -13,6 +13,7 @@ namespace BusinessLAyer.Service
 {
     public class UserAccountBL : IUserAccountBL
     {
+        //instance variable
         private IUserAccountRL fundoo;
         private string Secret;
         //constructor for class FundooBL 
@@ -21,7 +22,7 @@ namespace BusinessLAyer.Service
             Secret = configuration.GetSection("AppSettings").GetSection("Secret").Value;
             this.fundoo = fundoo;
         }
-        //----------------------------------------//
+        //-------------------------ADD USER------------------------------------------//
         /// <summary>
         /// Add user
         /// </summary>
@@ -29,13 +30,20 @@ namespace BusinessLAyer.Service
         /// <returns></returns>
         public UserAccountDetails AddUser(UserAccountDetails adduser)
         {
-            fundoo.AddUser(adduser);
-            return adduser;
+            try
+            {
+                fundoo.AddUser(adduser);
+                return adduser;
+            }
+            catch
+            {
+                throw;
+            }
         }
-        //----------------------------------------//
+        //---------------------------------GET DETAILS-------------------------------------------------//
 
         /// <summary>
-        /// Get USer
+        /// Method for   Get USer
         /// </summary>
         /// <returns></returns>
         public List<UserAccountDetails> GetFundoo()
@@ -49,8 +57,9 @@ namespace BusinessLAyer.Service
                 throw;
             }
         }
+        //----------------------------LOGIN ACCOUNT---------------------------------------------//
         /// <summary>
-        /// Login Account 
+        ///  Method for  Login Account 
         /// </summary>
         /// <param name="userEmail"></param>
         /// <param name="password"></param>
@@ -68,6 +77,48 @@ namespace BusinessLAyer.Service
                 throw;
             }
         }
+        //---------------------------------FORGET PASSWORD-------------------------------------------------//
+        /// <summary>
+        ///  Method for  Forget password.
+        /// </summary>
+        /// <param name="userEmail"></param>
+        /// <returns></returns>
+        public bool ForgotPassword(string UserEmail)
+        {
+            try
+            {
+
+                return this.fundoo.ForgotPassword(UserEmail);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        //---------------------------------RESET PASSWORD-------------------------------------------------//
+        /// <summary>
+        /// Method for reset password
+        /// </summary>
+        /// <param name="resetPassword"></param>
+        /// <returns></returns>
+        public bool ResetPassword(ResetPassword resetPassword)
+        {
+            try
+            {
+                return this.fundoo.ResetPassword(resetPassword);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        //-----------------------------------CREATE TOKEN-----------------------------------------------//
+        /// <summary>
+        /// Token Crreated
+        /// </summary>
+        /// <param name="userEmail"></param>
+        /// <param name="userid"></param>
+        /// <returns></returns>
         public string CreateToken(string userEmail, int userid)
         {
 
@@ -86,23 +137,8 @@ namespace BusinessLAyer.Service
             string jwtToken = tokenHandler.WriteToken(token);
             return jwtToken;
         }
-        /// <summary>
-        /// Forgets the password.
-        /// </summary>
-        /// <param name="userEmail"></param>
-        /// <returns></returns>
-        public bool ForgotPassword(string UserEmail)
-        {
-            try
-            {
 
-                return this.fundoo.ForgotPassword(UserEmail);
-            }
-            catch
-            {
-                throw;
-            }
-        }
+
 
         /// <summary>
         /// Get user by id

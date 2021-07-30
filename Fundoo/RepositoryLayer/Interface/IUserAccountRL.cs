@@ -30,6 +30,12 @@ namespace RepositoryLayer.Interface
         /// <param name="model"></param>
         /// <returns></returns>
         bool ForgotPassword(string UserEmail);
-
+        /// <summary>
+        /// Reset Password Method
+        /// </summary>
+        /// <param name="resetPassword">Reset Password</param>
+        /// <returns>boolean result</returns>
+       
+        public bool ResetPassword(ResetPassword resetPassword);
     }
 }
