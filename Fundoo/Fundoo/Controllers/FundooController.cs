@@ -64,7 +64,11 @@ namespace Fundoo.Controllers
                 return this.BadRequest(new { Success = false, Message = ex.Message, StackTrace = ex.StackTrace });
             }
         }
-
+        /// <summary>
+        ///Logins the instance.
+        /// </summary>
+        /// <param name="loginModel"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("Login")]
         public ActionResult UserLogin(LoginModel loginModel)
@@ -76,7 +80,8 @@ namespace Fundoo.Controllers
                 if (users != null)
                 {
                    string Token = Fundoo.CreateToken(users.UserEmail, users.Userid);
-                    return Ok(new { sucess = true, message = "User login succesfully", data = Token });
+                    return NotFound(new { sucess = false, message = "Invalid details", Data = Token });
+
                 }
                 return NotFound(new { sucess = false, message = "Invalid details" });
             }

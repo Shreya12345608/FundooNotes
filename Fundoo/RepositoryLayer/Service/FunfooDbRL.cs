@@ -74,10 +74,10 @@ namespace RepositoryLayer.Service
             try
             {
                 string pass = EncryptPassword(password);
-                var userValidation = fundooContext.FondooNotes.FirstOrDefault(user => user.UserEmail == userEmail && user.Password == password);
-                UserAccountDetails userAccountDetails = new UserAccountDetails();
+                UserAccountDetails userValidation = fundooContext.FondooNotes.FirstOrDefault(user => user.UserEmail == userEmail && user.Password == password);
+                //UserAccountDetails userAccountDetails = new UserAccountDetails();
                 //userAccountDetails.Password = pass;
-                return userAccountDetails;
+                return userValidation;
             }
             catch (Exception ex)
             {
