@@ -84,17 +84,7 @@ namespace RepositoryLayer.Service
                 throw new Exception(ex.Message);
             }
         }
-        /// <summary>
-        /// ability to retrieve password from the database 
-        /// after validating email.
-        /// </summary>
-        /// <param name="forgetPassword"></param>
-        /// <returns></returns>
-        public string ForgetPasswordModel(ForgetPasswordModel forgetPassword)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         private static string EncryptPassword(string Password)
         {
             //SHA1 hash value for the input data using the
@@ -106,6 +96,26 @@ namespace RepositoryLayer.Service
             String encrypted = Convert.ToBase64String(encrypt);
             return encrypted;
         }
-       
+        /// <summary>
+        /// forget password
+        /// </summary>
+        /// <param name="UserEmail"></param>
+        /// <returns></returns>
+        public bool ForgotPassword(string UserEmail)
+        {
+            try
+            {
+                var result = fundooContext.FondooNotes.FirstOrDefault(user => user.UserEmail == UserEmail);
+                if (result == null) { 
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
+

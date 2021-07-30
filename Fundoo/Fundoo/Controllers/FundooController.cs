@@ -1,5 +1,6 @@
 ﻿using BusinessLAyer.Interface;
 using CommanLayer;
+using Google.Apis.Admin.Directory.directory_v1.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RepositoryLayer.Service;
@@ -91,5 +92,27 @@ namespace Fundoo.Controllers
                 return this.BadRequest(new { Success = false, Message = ex.Message, StackTrace = ex.StackTrace});
             }
         }
+        [HttpPost]
+        [Route("forget-Password")]
+        public ActionResult ForgotPassword(ForgetPasswordModel user)
+        {
+            try
+            {
+                bool forgetpass = Fundoo.ForgotPassword(user.UserEmail);
+                if (forgetpass)
+                {
+                    return NotFound(new { sucess = false, message = "Invalid details", Data = forgetpass });
+
+                }
+                return NotFound(new { sucess = false, message = "No user Exist" });
+            }
+            catch (Exception ex)
+            {
+
+                return this.BadRequest(new { Success = false, Message = ex.Message, StackTrace = ex.StackTrace });
+            }
+          
+        }
     }
+
 }

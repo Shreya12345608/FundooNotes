@@ -13,7 +13,9 @@ namespace BusinessLAyer.Interface
         UserAccountDetails AddUser(UserAccountDetails adduser);
         UserAccountDetails LoginAccount(string userEmail , string password);
         string CreateToken(string userEmail, int userid);
-        string ForgetPasswordModel(ForgetPasswordModel forgetPassword);
+
+        bool ForgotPassword(string UserEmail);
+        // bool ResetPassword(ResetPassword resetPassword, string accountId);
     }
 
 }

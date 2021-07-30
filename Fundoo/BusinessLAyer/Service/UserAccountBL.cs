@@ -15,7 +15,7 @@ namespace BusinessLAyer.Service
     {
         private IUserAccountRL fundoo;
         private string Secret;
-        //constructor for class FundooBL
+        //constructor for class FundooBL 
         public UserAccountBL(IUserAccountRL fundoo, IConfiguration configuration)
         {
             Secret = configuration.GetSection("AppSettings").GetSection("Secret").Value;
@@ -32,12 +32,6 @@ namespace BusinessLAyer.Service
             fundoo.AddUser(adduser);
             return adduser;
         }
-
-        public string ForgetPasswordModel(ForgetPasswordModel forgetPassword)
-        {
-            throw new NotImplementedException();
-        }
-
         //----------------------------------------//
 
         /// <summary>
@@ -65,14 +59,14 @@ namespace BusinessLAyer.Service
         {
             try
             {
-                
-                return this.fundoo.UserLogin(userEmail,password);
-                
+
+                return this.fundoo.UserLogin(userEmail, password);
+
             }
-           catch
+            catch
             {
                 throw;
-            } 
+            }
         }
         public string CreateToken(string userEmail, int userid)
         {
@@ -92,6 +86,24 @@ namespace BusinessLAyer.Service
             string jwtToken = tokenHandler.WriteToken(token);
             return jwtToken;
         }
+        /// <summary>
+        /// Forgets the password.
+        /// </summary>
+        /// <param name="userEmail"></param>
+        /// <returns></returns>
+        public bool ForgotPassword(string UserEmail)
+        {
+            try
+            {
+
+                return this.fundoo.ForgotPassword(UserEmail);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         /// <summary>
         /// Get user by id
         /// </summary>

@@ -29,7 +29,7 @@ namespace RepositoryLayer.Interface
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        string ForgetPasswordModel(ForgetPasswordModel forgetPassword);
+        bool ForgotPassword(string UserEmail);
 
     }
 }

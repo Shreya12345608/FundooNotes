@@ -38,6 +38,16 @@ namespace RepositoryLayer.Service
             throw new NotImplementedException();
         }
 
+        public string ForgetPasswordModel(string UserEmail)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ForgotPassword(string UserEmail)
+        {
+            throw new NotImplementedException();
+        }
+
 
         /// <summary>
         /// List of hard coded value
